@@ -1,83 +1,45 @@
-# 🎵 Music Store Data Analysis (SQL)
+# Music Store Data Analysis — Advanced SQL
 
+An end-to-end SQL analysis of an 11-table music retail database. The project answers 11 business questions using multi-table joins, CTEs, subqueries, window functions, ranking, and tie-aware logic.
 
-> End-to-end SQL analysis on a relational music retail database (Chinook-style schema), answering 11 real-world business questions across easy, moderate, and advanced difficulty tiers using joins, subqueries, window functions, and CTEs.
+> **Portfolio focus:** relational data modeling, advanced SQL, customer analytics, revenue analysis, and business storytelling.
 
-## 📌 Project Overview
+## Business objective
 
-This project simulates a business analytics engagement for a digital music store. Using a normalized 11-table relational database (customers, invoices, tracks, albums, artists, genres, employees, playlists), it answers the kind of questions stakeholders actually ask — from *"who is our best customer?"* to *"which genre is most popular in each country?"*
+A digital music store needs to understand customer value, geographic demand, artist and genre performance, and purchasing behavior. This project translates a normalized relational schema into decision-oriented SQL analysis.
 
-| | |
-|---|---|
-| **Database** | 11-table relational schema (Chinook-style) |
-| **Queries** | 20+ SQL queries — aggregations, multi-table joins, subqueries, window functions, CTEs |
-| **Scope** | 11 business questions across 3 difficulty tiers (Easy → Moderate → Advanced) |
-| **Tool** | MySQL |
+## Data model
 
-## 🗂️ Repository Structure
-```
-music-store-analysis/
-├── README.md            # Project documentation
-├── queries.sql           # All SQL queries, organized by question
-├── questions.pdf          # Business questions the project answers
-├── schema_diagram.png      # Database ER diagram
-└── data/                  # Raw CSV source data (12 tables)
-```
+The repository includes CSV tables for customers, invoices, invoice lines, tracks, albums, artists, genres, employees, playlists, and media types. The schema diagram documents the relationships used to move from customer and invoice activity to artist and genre insights.
 
-## ❓ Business Questions Answered
+customer to invoice to invoice_line to track to album to artist, with genre connected through track.
 
-**Set 1 — Easy**
-| # | Question |
-|---|---|
-| 1 | Who is the most senior employee based on job title? |
-| 2 | Which countries have the most invoices? |
-| 3 | What are the top 3 values of total invoice? |
-| 4 | Which city generated the highest total revenue (for a promotional music festival)? |
-| 5 | Who is the best customer (highest total spend)? |
+## Business questions
 
-**Set 2 — Moderate**
-| # | Question |
-|---|---|
-| 6 | Email, first name, last name & genre of all Rock Music listeners (alphabetical by email) |
-| 7 | Top 10 rock bands by track count |
-| 8 | Tracks longer than the average song length, ordered by length |
+The analysis covers employee seniority, invoice volume by country, top invoice values, city revenue, highest-spending customer, Rock listeners, top Rock artists, above-average track length, spend by customer and artist, most popular genre per country, and top-spending customer per country with ties included.
 
-**Set 3 — Advanced**
-| # | Question |
-|---|---|
-| 9 | Amount spent by each customer per artist |
-| 10 | Most popular music genre per country, by purchase count (ties included) |
-| 11 | Top-spending customer per country, handling ties |
+## SQL techniques demonstrated
 
-## 🛠️ Tech Stack
-`MySQL` · `Window Functions` · `CTEs` · `Subqueries` · `Multi-table Joins`
+The queries use multi-table joins, CTEs, correlated and scalar subqueries, aggregations, window functions, ranking, and tie-handling logic. The result is a practical SQL portfolio project rather than an isolated syntax exercise.
 
-## 🔑 Key Techniques Used
-- **Common Table Expressions (CTEs)** to break complex logic into readable, layered steps
-- **Window functions** (`ROW_NUMBER() OVER (PARTITION BY ...)`) to rank customers within each country
-- **Correlated & scalar subqueries** — e.g., filtering tracks longer than the dataset average
-- **Multi-table joins** across a normalized 11-table schema (customer → invoice → invoice_line → track → album → artist → genre)
-- **Tie-handling logic** so questions like "top customer per country" correctly return every customer sharing the maximum spend, not just one
+## Verified headline insights
 
-## 📈 Key Insights
-- **USA leads in order volume** — 131 invoices, ahead of Canada (76) and Brazil (61)
-- **Prague is the top revenue city** — $273.24 in total invoice value, ahead of Mountain View and London — the recommended location for a promotional music festival
-- **Best customer by lifetime spend:** František Wichterlová at $144.54
-- **Rock dominates the catalog** — 1,297 of 3,503 tracks (37%) are tagged Rock
-- **Led Zeppelin is the top Rock artist by track count** (114 tracks), ahead of U2 (112) and Deep Purple (92)
+The USA leads invoice volume with 131 invoices. Prague is the highest-revenue city in the supplied analysis with 273.24 dollars in invoice value. The highest-spending customer is František Wichterlová with 144.54 dollars in lifetime spend. Rock is the largest catalog genre with 1,297 of 3,503 tracks, and Led Zeppelin is the top Rock artist by track count in the supplied analysis.
 
-## 📊 Approach
-1. Explored the schema (`schema_diagram.png`) to map relationships across customers, invoices, tracks, albums, artists, and genres
-2. Answered Easy-tier questions with straightforward aggregations and sorting
-3. Moved to Moderate-tier questions requiring multi-table joins and subqueries on genre/track data
-4. Solved Advanced-tier questions with CTEs and window functions to rank spend/genre popularity per country, correctly handling ties
+## Tools and repository contents
 
-## 📁 Dataset
-Chinook-style music store database with 12 related tables (customers, invoices, tracks, albums, artists, genres, employees, playlists). Full ER diagram included as `schema_diagram.png`.
+MySQL · Window Functions · CTEs · Subqueries · Multi-table Joins
 
-## 🚀 How to Run
-1. Import the CSVs in `data/` into a MySQL database (or use the Chinook schema directly)
-2. Run the queries in `queries.sql` against the `music` database
+The repository contains queries.sql, the source CSV tables in data, questions.pdf, and schema_diagram.png.
+
+## How to review locally
+
+Clone the repository, import the CSV tables into MySQL or another compatible relational database, and run queries.sql. Review schema_diagram.png first to understand the relationships used by the query logic.
+
+## Limitations and next steps
+
+This is a static relational case study. A production extension would add a data dictionary, automated SQL tests, a reproducible database-loading script, customer cohorts, and a small dashboard showing the most important commercial outputs. The duplicate album file should also be explained or removed if it is not intentionally preserved for comparison.
 
 ---
-*Part of a Data Analyst project portfolio — feedback and suggestions welcome.*
+
+*Part of Mayank Srivastava's Data Analyst portfolio.*
